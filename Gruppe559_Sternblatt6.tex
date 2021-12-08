@@ -1,0 +1,78 @@
+\documentclass[a4paper,11pt,oneside]{scrartcl}
+
+% etwas mehr Platz für Feedback
+\usepackage[onehalfspacing]{setspace}
+
+
+% Standardpakete
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage{mathpazo}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amssymb}
+
+% Sprache wählen
+\usepackage[ngerman,shorthands=off]{babel}
+
+% schöner Programmcode
+\usepackage{listings}
+\lstset{%
+  showstringspaces=false,
+  mathescape=true,
+  inputencoding=utf8,
+  numbers=left,
+  xleftmargin=\parindent,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\normalfont\itshape\color{black!60},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
+  tabsize=2%
+}
+
+\subtitle{ALGO1 · SoSe 2021}
+
+% Ausfüllen:
+\title{Lösung zu Aufgabe 5.7}
+
+% Ausfüllen:
+\author{%
+  Michelangelo Battista <s7657928@stud.uni-frankfurt.de>
+  \and Noura Ettalibi <s3638690@stud.uni-frankfurt.de>\and 
+Fabian Lebert <s5914579@stud.uni-frankfurt.de>
+}
+\begin{document}
+\maketitle
+\section*{Aufgabenteil (a)}
+\subsection*{Pseudocode:}
+\begin{lstlisting}[language=Python]
+def Clique(GraphG, NodesAmount):
+    referenceNumber = Blackbox(GraphG)
+    for i in range(0, NodesAmount, 1):
+        tempG = RemoveOneNode(GraphG, i)
+        tempNumber = Blackbox(tempG)
+        if tempNumber == referenceNumber:
+            GraphG = tempG
+    return GraphG
+\end{lstlisting}
+\subsection* {Beschreibung des Algorithmus:}
+Unser Algorithmus besteht aus 2 Funktionen. Die Hauptfunktion "Clique()" braucht 2 Argumente genannt "GraphG" und "NodesAmount".\\
+"GraphG" ist der Graph aus dem ein vollständiger Teilgraph maximaler Größe berechnet werden soll. "NodesAmount" ist ein Integer, indem die Anzahl der Knoten in "GraphG" angegeben sind.\\
+Um die maximale Größe des vollständigen Teilgraphens heraus zu finden, wird in Zeile zwei die Blackbox mit dem gesamten Graphen G aufgerufen. Die maximale Größe wird dann in einer Variable namens "referenceNumber" gespeichert.\\
+Die For-Schleife entspricht nun der Hauptidee des Algorithmuses. Um den vollständigen Teilgraph von G heraus zu finden wird jetzt jeder Knoten nacheinander aus dem Graphen G gelöscht und in der Variable "tempG" gespeichert. Der somit entstandene neue Graph wird jetzt in die Blackbox gegeben, um erneut die maximale Größe des vollständigen Teilgraphen zu berechnen und in der Variable "temp" gespeichert. Wenn der Wert aus der Variable "temp" gleich dem Wert der Variable "referenceNumber" ist, hat der entfernte Knoten keine Bedeutung in dem vollständigen Teilgraphen. Daraus folgt, dass der Knoten dauerhaft aus dem "GraphG" entfernt werden kann. Die dauerhafte Entfernung findet in Zeile 7 statt. Sobald die For-Schleife fertig durchlaufen ist, wird am Ende der fertige Teilgraph returnt.\\
+Die zweite wichtige Funktion heißt "RemoveOneNode" und ist dafür verantwortlich den Knoten "i" aus dem übergebenen "GraphG" zu entfernen. Wir nehmen dafür an, dass wir eine doppeltverkette Liste benutzen, die wiederrum alle Knoten als doppeltverkettete Listen verwaltet. Somit wird zu Entfernung eines Knoten eine Laufzeit von $O(n^2)$ gebraucht.
+\subsection*{Laufzeit und Korrektheit:}
+Die For-Schleife des Algorithmus hat n Durchläufe, diese laufen in polynomieller Zeit ab. Die Blackbox gibt ihr Ergebnis in polynomieller Zeit aus und RemoveOneNode läuft in Zeit$\mathcal{O}(n^2)$
+, da wir davon ausgehen, dass unserer Graph als doppelt verkettete Liste gegeben ist, damit läuft unsere for-Schleife in $\mathcal{O}(n^3)$ oder in der Zeit der Blackbox liegt
+,abhängig davon was größer wächst, jedoch ist beides polynomiell,damit läuft der Algorithmus in polynomieller Laufzeit.\\\\
+Der Algorithmus bekommmt einen Graphen G und die Anzahl der Knoten gegeben, am Anfang wird gespeichert, wie groß der größte vollständige Teilgraph ist, in der for-Schleife werden die Knoten entfernt
+,welche die Größe des vollständigen Teilgraphen verändern, dadurch sind am Ende nur noch die Knoten vorhanden, welche essenziell für den größten vollständigen Teilgraphen sind.
+\section*{Aufgabenteil (b)}
+\section*{Aufgabenteil (c)}
+\end{document}

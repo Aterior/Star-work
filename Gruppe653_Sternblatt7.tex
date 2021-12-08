@@ -1,0 +1,75 @@
+\documentclass[a4paper,11pt,oneside]{scrartcl}
+
+% etwas mehr Platz für Feedback
+\usepackage[onehalfspacing]{setspace}
+
+
+% Standardpakete
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage{mathpazo}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{amssymb}
+\usepackage{makecell}
+
+% Sprache wählen
+\usepackage[ngerman,shorthands=off]{babel}
+
+% schöner Programmcode
+\usepackage{listings}
+\lstset{%
+  showstringspaces=false,
+  mathescape=true,
+  inputencoding=utf8,
+  numbers=left,
+  xleftmargin=\parindent,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\normalfont\itshape\color{black!60},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
+  tabsize=2%
+}
+
+\subtitle{ALGO1 · SoSe 2021}
+
+% Ausfüllen:
+\title{Lösung zu Aufgabe 8.5}
+
+% Ausfüllen:
+\author{%
+  Michelangelo Battista <s7657928@stud.uni-frankfurt.de>
+  \and Noura Ettalibi <s3638690@stud.uni-frankfurt.de>\and 
+Fabian Lebert <s5914579@stud.uni-frankfurt.de>
+}
+\begin{document}
+\maketitle
+\section*{Reduktion von 5-Coloring auf 5-careful Coloring}
+\fcolorbox{gray!25}{gray!25}{\parbox{\linewidth}{Problemstellung:\\
+Zeige, dass das Entscheidungsproblem, ob ein gegebener Graph eine vorsichtige \\ $5$-\textsc{Färbung} besitzt, $\mathcal{NP}-hart$ ist.}}\\\\
+$5-Coloring \leq_p 5-careful-Coloring$\\
+1) Im Problem \textit{vorsichtige} 5-Färbung, darf es keine Kanten zwischen Knoten geben, deren Färbung sich um weniger als 2 oder mehr als 3 modul 5 unterscheidet.\\
+Dementsprechend darf es weder Cliquen der Größe 4 noch der Größe 5 geben.\\
+$\Rightarrow$ alle möglichen Cliquen dieser Größe tranformieren, in dem man zwischen Knoten, welche trotz dieser Bedingungen verbunden sind Zwischenknoten einfügt.\\
+Für die Knoten gilt in der folgenden Tabelle, die Einträge sind die möglichen Zwischenknoten:\\
+\begin{tabular}{c|c|c|c|c|c}
+    $\backslash$ & 0 & 1 & 2 & 3 & 4 \\\hline
+    0 & X &  \makecell{$3$ \\ $2, 4$} & X & X &  \makecell{$2$ \\ $3, 1$}\\\hline
+    1 & \makecell{$3$\\$4, 2$} & X & \makecell{$4$ \\ $3, 0$} & X & X \\\hline
+    2 & X & \makecell{$4$ \\ $0, 3$} & X & \makecell{$0$ \\ $4, 1$} & X\\\hline
+    3 & X & X & \makecell{$0$ \\ $1, 4$} & X & \makecell{$1$ \\ $0, 2$} \\\hline
+    4 & \makecell{$2$ \\ $1, 3$} & X & X & \makecell{$1$ \\ $2, 0$} & X \\
+\end{tabular}
+\\\\
+Dadurch werden alle Kanten, welche der Bedingung nach keiner vorsichtigen Färbung entsprechen,  in Kanten umgewandelt, die nun wieder einer vorsichtigen Färbung entsprechen.\\
+Jetzt kann der Graph als Problem im Algorithmus für das Problem "vorsichtige" 5-Färbung eingegeben werden, der Algorithmus, sollte eine vorsichtige 5-Färbung finden,
+dadurch dass man nun die hinzugefügten Kanten wieder entfernt, und die alten Kanten wiederherstellt, bekommt man eine 5-Färbung für den gegebenen Graphen.\\
+Daraus folgt, dass vorsichtige 5-Färbung mindestens so schwer wie 5-Färbung ist, was bedeutet, dass 5-Färbung NP-schwer ist.
+\end{document}
